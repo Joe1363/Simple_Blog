@@ -7,10 +7,10 @@
     .col-md-10.col-md-offset-1.newest
       - if !@articles.empty?
         - @articles.each do |a|
-          .mainSample
+          .index_sample
             %h5
               .title=a.title
               by #{a.author}
-            %h5= raw truncate(strip_tags(a.content), length: 286, omission: "...")
+            %h5= raw truncate(strip_tags(a.content), length: 280, omission: "...")
       - else
         %p= "There's nothing at all, nothing at all, nothing at all."
