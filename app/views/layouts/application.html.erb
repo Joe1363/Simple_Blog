@@ -7,7 +7,20 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">
+          <p>Simple Blog</p>
+        </a>
+      </div>
 
+      <div class="nav navbar-nav navbar-right">
+        <li><a href="/users/sign_in">Log In</a></li>
+        <li><a href="/users/sign_up">Sign Up</a></li>
+      </div>
+    </div>
+  </nav>
 <%= yield %>
 
 </body>
