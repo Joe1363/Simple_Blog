@@ -8,16 +8,22 @@
 </head>
 <body>
   <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="/">
-          <p>Simple Blog</p>
-        </a>
+    <div class="container">
+      <div class="nav navbar-nav navbar-left">
+        <li><a href="/articles/more">View Articles</a></li>
+        <li><a href="/articles/search">Search</a></li>
       </div>
 
       <div class="nav navbar-nav navbar-right">
-        <li><a href="/users/sign_in">Log In</a></li>
-        <li><a href="/users/sign_up">Sign Up</a></li>
+        <% if user_signed_in? %>
+          <li><a href="/articles/new">New Article</a></li>
+          <li><a href="/articles/userArticles">Manage Articles</a></li>
+          <li><a href="/users/setting">Settings</a></li>
+          <li><a href="/users/sign_out">Log Out</a></li>
+        <% else %>
+          <li><a href="/users/sign_in">Log In</a></li>
+          <li><a href="/users/sign_up">Sign Up</a></li>
+        <% end %>
       </div>
     </div>
   </nav>

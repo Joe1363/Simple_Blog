@@ -1,1 +1,15 @@
-%h1.text-center= "Title"
+%h2.text-center= "Simple Blog"
+%br
+%h4.text-center= "Newest Articles"
+
+.container
+  .row
+    .col-md-10.col-md-offset-1.newest
+      - if !@articles.empty?
+        - @articles.each do |a|
+          .mainSample
+            %p= a.title
+            %br
+            %p= a.content
+      - else
+        %p= "There's nothing at all, nothing at all, nothing at all."
