@@ -1,0 +1,13 @@
+%h2.text-center= "Create A New Article"
+%br
+= form_for(@article) do |f|
+  .form-group.container
+    = f.label :title, "Article Title"
+    %br
+    = f.text_field :title, class: "form-control"
+  .form-group.container
+    = f.label :content, "Article Content"
+    %br
+    = f.text_area :content, class: "form-control", rows: '15'
+  .form-group.container
+    = f.submit "Post Article"
