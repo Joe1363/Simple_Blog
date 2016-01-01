@@ -26,7 +26,8 @@
           - else
             %p= "-------------"
         .col-xs-4
-          %p= a.title
+          %a{href: "/articles/#{a.id}"}
+            %p.article_title= a.title
         .col-xs-2
           - if can? :update, a
             %p
