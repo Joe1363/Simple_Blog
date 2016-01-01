@@ -16,7 +16,10 @@
         .col-md-1.col-md-offset-2
           %p= a.created_at.strftime("%m-%d-%y")
         .col-md-1
-          %p= a.updated_at.strftime("%m-%d-%y")
+          - if a.updated_at != a.created_at
+            %p= a.updated_at.strftime("%m-%d-%y")
+          - else
+            %p= "--------------"
         .col-md-4
           %p= a.title
         .col-md-2
