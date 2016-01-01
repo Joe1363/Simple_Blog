@@ -8,3 +8,4 @@
           .title=a.title
           by #{a.author}
         %p.index_content= raw truncate(a.content, length: 160, omission: "...")
+  %h4= will_paginate @products
