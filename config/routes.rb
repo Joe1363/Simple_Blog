@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   get "articles/all"
   resources :articles
 
-  get "users/user_articles"
+  get "users/:id", to: "users#show"
   devise_for :users, :controllers => { registrations: 'registrations' }
 end
