@@ -39,6 +39,9 @@
                 <li><a href="/users/<%= current_user.id %>">Manage Articles</a></li>
               </ul>
             </li>
+            <% if can? :toggleMod, User %>
+              <li><a href="/users/tools">Tools</a></li>
+            <% end %>
             <li><a href="/users/edit">Settings</a></li>
             <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
           <% else %>

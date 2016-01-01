@@ -1,0 +1,22 @@
+%h4.text-center= "Admin Tools"
+%br
+  .container
+    .row
+      .col-md-2.col-md-offset-2
+        %h5.underline= "Name"
+      .col-md-1
+        %h5.underline= "Role"
+      .col-md-4
+        %h5.underline= "Options"
+    - @users.each do |a|
+      .row
+        .col-md-2.col-md-offset-2
+          %p= a.first_name + " " + a.last_name
+        .col-md-1
+          %p= a.role
+        .col-md-4
+          %p
+            = link_to "Toggle Moderator", "/users/tools/#{a.id}", method: :patch
+            -# |
+            -# = link_to "Ban"
+      %hr
