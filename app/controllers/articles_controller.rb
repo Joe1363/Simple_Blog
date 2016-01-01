@@ -13,11 +13,21 @@ class ArticlesController < ApplicationController
     @article.user_id = current_user.id
     @article.save
 
-    redirect_to "/"
+    redirect_to "/" #TODO change this once manage articles is ready
   end
 
   def show
     @article = Article.find(params[:id])
+  end
+
+  def edit
+  end
+
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+
+    redirect_to "/users/user_articles"
   end
 
   private

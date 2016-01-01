@@ -1,0 +1,25 @@
+%h4.text-center= "Manage Articles"
+%br
+- if !@articles.empty?
+  .container
+    .row
+      .col-md-1.col-md-offset-2
+        %h5.underline= "Created"
+      .col-md-5
+        %h5.underline= "Article Title"
+      .col-md-2
+        %h5.underline= "Options"
+    - @articles.each do |a|
+      .row
+        .col-md-1.col-md-offset-2
+          %p= a.created_at.strftime("%m-%d-%y")
+        .col-md-5
+          %p= a.title
+        .col-md-2
+          %p
+            %a{href: "/articles/#{a.id}/edit"}= "Edit"
+            |
+            = link_to 'Delete', "/articles/#{a.id}", data: {confirm: "Are you sure you want to delete this article?"} , method: :delete
+
+- else
+  %h5.text-center= "No articles. Go write something."
