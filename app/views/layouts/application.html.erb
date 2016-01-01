@@ -12,30 +12,41 @@
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav_right" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
         <a class="navbar-brand" id="brand" href="/">Simple Blog</a>
+        <% if user_signed_in? %>
+          <p class="navbar-text">Hello <%= current_user.first_name %>!</p>
+        <% end %>
       </div>
 
-      <ul class="nav navbar-nav navbar-right">
-        <% if user_signed_in? %>
-          <li class="nav_text_padding">Hello <%= current_user.first_name %>!</li>
-          <li class="empty_space nav_text_padding">|</li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Articles <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="/articles/more">View Articles</a></li>
-              <li><a href="/articles/search">Search</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="/articles/new">New Article</a></li>
-              <li><a href="/users/user_articles">Manage Articles</a></li>
-            </ul>
-          </li>
-          <li><a href="/users/edit">Settings</a></li>
-          <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
-        <% else %>
-          <li><a href="/users/sign_in">Log In</a></li>
-          <li><a href="/users/sign_up">Sign Up</a></li>
-        <% end %>
-      </ul>
+      <div class="collapse navbar-collapse" id="nav_right">
+        <ul class="nav navbar-nav navbar-right">
+          <% if user_signed_in? %>
+            <!-- <li class="navbar-text">Hello <%= current_user.first_name %>!</li> -->
+            <li class="empty_space nav_text_padding hidden-xs">|</li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Articles <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/articles/more">View Articles</a></li>
+                <li><a href="/articles/search">Search</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/articles/new">New Article</a></li>
+                <li><a href="/users/user_articles">Manage Articles</a></li>
+              </ul>
+            </li>
+            <li><a href="/users/edit">Settings</a></li>
+            <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+          <% else %>
+            <li><a href="/users/sign_in">Log In</a></li>
+            <li><a href="/users/sign_up">Sign Up</a></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </nav>
 <%= yield %>
