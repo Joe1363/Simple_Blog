@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.first(10)
+    @articles = Article.order(created_at: :desc).limit(5)
   end
 
   def all
