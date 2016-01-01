@@ -5,7 +5,9 @@
     .row
       .col-md-1.col-md-offset-2
         %h5.underline= "Created"
-      .col-md-5
+      .col-md-1
+        %h5.underline= "Edited"
+      .col-md-4
         %h5.underline= "Article Title"
       .col-md-2
         %h5.underline= "Options"
@@ -13,11 +15,13 @@
       .row
         .col-md-1.col-md-offset-2
           %p= a.created_at.strftime("%m-%d-%y")
-        .col-md-5
+        .col-md-1
+          %p= a.updated_at.strftime("%m-%d-%y")
+        .col-md-4
           %p= a.title
         .col-md-2
           %p
-            %a{href: "/articles/#{a.id}/edit"}= "Edit"
+            = link_to "Edit", edit_article_path(a.id)
             |
             = link_to 'Delete', "/articles/#{a.id}", data: {confirm: "Are you sure you want to delete this article?"} , method: :delete
 
