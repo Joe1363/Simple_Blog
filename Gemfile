@@ -27,6 +27,8 @@ gem 'haml-rails'
 
 gem 'will_paginate'
 
+gem 'cancan'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
