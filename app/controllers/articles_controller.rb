@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  load_and_authorize_resource
+
   def index
     @articles = Article.order(created_at: :desc).limit(5)
   end
