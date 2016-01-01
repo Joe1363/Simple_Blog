@@ -10,6 +10,7 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     @article.author = current_user.first_name + " " + current_user.last_name
+    @article.user_id = current_user.id
     @article.save
 
     redirect_to "/"
