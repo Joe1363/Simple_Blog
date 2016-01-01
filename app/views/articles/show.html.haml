@@ -1,0 +1,14 @@
+.container
+  .row
+    .col-md-12
+      %h4.text-center= @article.title
+  .row
+    .col-md-2
+      %a{href: "/"}
+        %h5= "<<Back"
+    .col-md-8
+      %h5.text-center= "By #{@article.author}"
+
+%br
+.container
+  %p.index_content= simple_format(@article.content)
