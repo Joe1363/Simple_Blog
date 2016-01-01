@@ -1,6 +1,10 @@
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.order(created_at: :desc)
+    @articles = Article.first(10)
+  end
+
+  def all
+    @articles = Article.all
   end
 
   def new
@@ -13,7 +17,7 @@ class ArticlesController < ApplicationController
     @article.user_id = current_user.id
     @article.save
 
-    redirect_to "/" #TODO change this once manage articles is ready
+    redirect_to "/users/user_articles"
   end
 
   def show

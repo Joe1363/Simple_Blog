@@ -12,7 +12,5 @@
                 .title=a.title
                 by #{a.author}
               %p.index_content= raw truncate(a.content, length: 280, omission: "...")
-              -# %p.index_content= simple_format(a.content)
-              -# %p.index_content= a.content
       - else
         %p= "There's nothing at all, nothing at all, nothing at all."
