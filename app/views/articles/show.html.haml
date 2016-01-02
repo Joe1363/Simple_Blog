@@ -1,11 +1,16 @@
 %h4.text-center= @article.title
 .container
   .row
-    .col-md-2
-      %a{href: "/"}
-        %h5= "<<Back"
+    .col-md-1
+      %h5
+        %a{href: "/"}= "<<Back"
+    .col-md-1
+      - if can? :edit, @article
+        %h5
+          %a{href: "/articles/#{@article.id}/edit"}= "Edit"
     .col-md-8
-      %h5.text-center= "By #{@article.author}"
+      %h5.text-center
+        %a.article_title{href: "/users/#{@article.user_id}"}= "By #{@article.author}"
 
 %br
 .container

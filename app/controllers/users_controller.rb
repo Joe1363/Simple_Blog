@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!, :except => [:show]
+  load_and_authorize_resource
+
   def show
     @user = User.find(params[:id])
     @articles = @user.articles
@@ -20,7 +23,7 @@ class UsersController < ApplicationController
       @user.role = "author"
       @user.save
     end
-
     redirect_to "/users/tools"
   end
+
 end
