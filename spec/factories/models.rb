@@ -5,6 +5,14 @@ FactoryGirl.define do
     sequence(:email) { |n| "cn#{n}@example.com" }
     password "password"
     encrypted_password "password"
+
+    factory :moderator do
+      role "moderator"
+    end
+
+    factory :admin do
+      role "admin"
+    end
   end
 
   factory :article do

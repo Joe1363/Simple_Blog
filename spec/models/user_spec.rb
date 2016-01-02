@@ -11,4 +11,15 @@ describe User, type: :model do
    expect(aUser.password).to eq "password"
    expect(aUser.encrypted_password).to eq "password"
  end
+
+ #factory testing
+ it "should be admin" do
+   aUser = FactoryGirl.create(:moderator)
+   expect(aUser.role).to eq "moderator"
+ end
+
+ it "should be a mod" do
+   aUser = FactoryGirl.create(:admin)
+   expect(aUser.role).to eq "admin"
+ end
 end
