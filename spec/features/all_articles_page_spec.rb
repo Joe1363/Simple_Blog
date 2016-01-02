@@ -18,32 +18,30 @@ describe "Main page" do
 
     ## 1 admin
     @cUser = FactoryGirl.create(:admin)
+
+    visit '/'
   end
 
   #### guests ####
   it "should display all articles for guests" do
-    visit '/'
     click_link 'View Articles'
     checkArticles()
   end
 
   #### authors ####
   it "should display all articles for authors" do
-    visit '/'
     click_link 'View Articles'
     checkArticles()
   end
 
   #### moderators ####
   it "should display all articles for moderators" do
-    visit '/'
     click_link 'View Articles'
     checkArticles()
   end
 
   #### admin ####
   it "should display all articles for admin" do
-    visit '/'
     click_link 'View Articles'
     checkArticles()
   end
