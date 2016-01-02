@@ -26,6 +26,7 @@ class ArticlesController < ApplicationController
   def show
     @article = Article.find(params[:id])
     @comments = @article.comments
+    @comment = Comment.new
   end
 
   def edit
@@ -46,9 +47,14 @@ class ArticlesController < ApplicationController
     redirect_to "/users/user_articles"
   end
 
+
   private
     def article_params
       params.require(:article).permit(:title, :content, :author)
     end
+
+    # def comment_params
+    #   params.require(:article).permit(:comment, :author)
+    # end
 
 end

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   get "articles/all"
   resources :articles
+  match('/articles/:id/create', {:via => :post, :to => 'comments#create'})
 
   devise_for :users, :controllers => { registrations: 'registrations' }
   get 'users/tools'

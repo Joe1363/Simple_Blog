@@ -19,6 +19,15 @@
 %h4.text-center= "Comments"
 .container.comments_section
   - if !@comments.empty?
-    .row
+    - @comments.each do |a|
+      .row
+        .col-md-12
+          %h5= a.author
+          %p= a.created_at.strftime("%m-%d-%y at %l:%M")
+          %p= a.content
+      %hr
+    = render :partial => "comment_form"
   - else
-    %p.text-center= "Be the first to comment."
+    %p.text-center= "Be the first to comment on this article."
+    %hr
+    = render :partial => "comment_form"

@@ -1,0 +1,5 @@
+= form_for @comment, url: {action: "create", controller: "comments"} do |f|
+  .form-group
+    = f.text_area :content, class: "form-control", rows: '3'
+  .form-group
+    = f.submit "Post Comment"
