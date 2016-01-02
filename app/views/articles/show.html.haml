@@ -26,8 +26,11 @@
           %p= a.created_at.strftime("%m-%d-%y at %l:%M %p %Z")
           %p= a.content
       %hr
-    = render :partial => "comment_form"
   - else
-    %p.text-center= "Be the first to comment on this article."
+    - if user_signed_in?
+      %p.text-center= "Be the first to comment on this article."
+    - else
+      %p.text-center= "There are no comments on this article yet."
     %hr
+  - if user_signed_in?
     = render :partial => "comment_form"
