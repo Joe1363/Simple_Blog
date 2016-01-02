@@ -22,25 +22,29 @@ describe "Main page" do
 
   #### guests ####
   it "should display all articles for guests" do
-    visit '/articles/all'
+    visit '/'
+    click_link 'View Articles'
     checkArticles()
   end
 
   #### authors ####
   it "should display all articles for authors" do
-    visit '/articles/all'
+    visit '/'
+    click_link 'View Articles'
     checkArticles()
   end
 
   #### moderators ####
   it "should display all articles for moderators" do
-    visit '/articles/all'
+    visit '/'
+    click_link 'View Articles'
     checkArticles()
   end
 
   #### admin ####
   it "should display all articles for admin" do
-    visit '/articles/all'
+    visit '/'
+    click_link 'View Articles'
     checkArticles()
   end
 
