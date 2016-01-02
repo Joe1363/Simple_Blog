@@ -28,8 +28,13 @@ describe "Main page" do
       expect(page).to have_content "View Article"
       expect(page).to have_content "Log In"
       expect(page).to have_content "Sign Up"
+      
+      expect(page).not_to have_content "Hello"
+      expect(".dropdown").not_to have_content "Article"
+      expect(page).not_to have_content "Tools"
+      expect(page).not_to have_content "Settings"
+      expect(page).not_to have_content "Logout"
     end
-
     checkArticles()
   end
 
@@ -38,7 +43,10 @@ describe "Main page" do
     log_in @aUser
     visit "/"
 
-    check_nav @aUser
+    checkNav @aUser
+    within(".navbar") do
+      expect(page).not_to have_content "Tools"
+    end
     checkArticles()
   end
 
@@ -47,7 +55,10 @@ describe "Main page" do
     log_in @bUser
     visit "/"
 
-    check_nav @bUser
+    checkNav @bUser
+    within(".navbar") do
+      expect(page).not_to have_content "Tools"
+    end
     checkArticles()
   end
 
@@ -56,7 +67,7 @@ describe "Main page" do
     log_in @cUser
     visit "/"
 
-    check_nav @cUser
+    checkNav @cUser
     checkArticles()
   end
 
@@ -70,7 +81,7 @@ describe "Main page" do
       end
     end
 
-    def check_nav(user)
+    def checkNav(user)
       within(".navbar") do
         expect(page).to have_content "Simple Blog"
         expect(page).to have_content "Hello #{user.first_name}!"

@@ -28,6 +28,6 @@ FactoryGirl.define do
 
   factory :comment do
     content "Your ideas are intriguing to me and I wish to subscribe to your newsletter"
-    author "Homer Simpson"
+    author "Chuck Norris"
   end
 end
