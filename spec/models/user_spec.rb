@@ -9,7 +9,7 @@ describe User, type: :model do
    expect(aUser.email).to eq "cn9999@example.com"
    expect(aUser.role).to eq "author"
    expect(aUser.password).to eq "password"
-   expect(aUser.encrypted_password).to eq "password"
+   expect(aUser.id).not_to eq nil
  end
 
  #factory testing

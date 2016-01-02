@@ -8,8 +8,10 @@ class Ability
       can :manage, :all
       cannot :edit, Article
     elsif user.role == "moderator"
+      can [:create, :update, :edit, :destroy], Article, user_id: user.id
       can :destroy, Article
-      can :edit, Article, user_id: user.id
+      can [:index, :all, :show], Article
+      can :show, User
       cannot [:tools, :toggleMod], User
     elsif user.role == "author"
       can [:create, :update, :destroy], Article, user_id: user.id
