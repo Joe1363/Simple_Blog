@@ -24,15 +24,25 @@
         .col-md-12
           %h5.comment_margin
             %strong= a.author
-          %p.comment_margin= a.created_at.strftime("%m-%d-%y at %l:%M %p %Z")
+          .row
+            .col-md-10
+              %p.comment_margin= a.created_at.strftime("%m-%d-%y at %l:%M %p %Z")
+            .col-md-2
+              %p.comment_margin
+                - if can? :edit, a
+                  = link_to "Edit", edit_comment_path(a.id)
+                  |
+                - if can? :destroy, a
+                  = link_to 'Delete', "/comments/#{a.id}", data: {confirm: "Are you sure you want to delete this article?"} , method: :delete
           %hr.comment_hr
           %p= a.content
-      %hr
+          %hr.comment_bottom_hr
+
   - else
     - if user_signed_in?
       %p.text-center= "Be the first to comment on this article."
     - else
       %p.text-center= "There are no comments on this article yet."
-    %hr
+    %hr.comment_bottom_hr
   - if user_signed_in?
     = render :partial => "comment_form"

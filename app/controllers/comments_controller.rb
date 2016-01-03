@@ -4,9 +4,21 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @comment.author = current_user.first_name + " " + current_user.last_name
     @comment.article_id = @article.id
+    @comment.user_id = @article.user_id
     @comment.save
 
     redirect_to "/articles/#{@article.id}"
+  end
+
+  def update
+  end
+
+  def destroy
+    @comment = Comment.find(params[:id])
+    article = @comment.article_id
+    @comment.destroy
+
+    redirect_to "/articles/#{article}"
   end
 
   private
