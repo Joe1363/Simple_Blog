@@ -24,12 +24,22 @@ describe "New article page" do
 
   #### authors ####
   it "should let an author create a new article" do
+    click_link "Articles"
     click_link "New Article"
 
     checkNewPageContent()
   end
 
   private
+    def log_in(user)
+      visit 'users/sign_in'
+      within('.row') do
+        fill_in "Email", :with => user.email
+        fill_in "Password", :with => user.password
+        click_button "Log in"
+      end
+    end
+    
     def checkNewPageContent
       expect(page).to have_content "Create A New Article"
       expect(page).to have_content "Article Title"

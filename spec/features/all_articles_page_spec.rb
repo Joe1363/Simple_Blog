@@ -30,23 +30,35 @@ describe "All articles page" do
 
   #### authors ####
   it "should display all articles for authors" do
+    log_in @aUser
     click_link 'View Articles'
     checkArticles()
   end
 
   #### moderators ####
   it "should display all articles for moderators" do
+    log_in @bUser
     click_link 'View Articles'
     checkArticles()
   end
 
   #### admin ####
   it "should display all articles for admin" do
+    log_in @cUser
     click_link 'View Articles'
     checkArticles()
   end
 
   private
+    def log_in(user)
+      visit 'users/sign_in'
+      within('.row') do
+        fill_in "Email", :with => user.email
+        fill_in "Password", :with => user.password
+        click_button "Log in"
+      end
+    end
+
     def checkArticles()
       within("body") do
         expect(page).to have_content "All Articles"
@@ -59,5 +71,4 @@ describe "All articles page" do
         expect(page).to have_content "Content"
       end
     end
-
 end
