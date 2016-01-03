@@ -22,8 +22,10 @@
     - @comments.each do |a|
       .row
         .col-md-12
-          %h5= a.author
-          %p= a.created_at.strftime("%m-%d-%y at %l:%M %p %Z")
+          %h5.comment_margin
+            %strong= a.author
+          %p.comment_margin= a.created_at.strftime("%m-%d-%y at %l:%M %p %Z")
+          %hr.comment_hr
           %p= a.content
       %hr
   - else
