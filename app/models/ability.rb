@@ -14,8 +14,8 @@ class Ability
       can :show, User
       cannot [:tools, :toggleMod], User
     elsif user.role == "author"
-      can [:create, :update, :destroy], Article, user_id: user.id
-      can [:index, :all, :show], Article
+      can [:create, :index, :all, :show], Article
+      can [:update, :destroy], Article, user_id: user.id
       can :show, User
       cannot [:tools, :toggleMod], User
     else

@@ -20,7 +20,7 @@ class ArticlesController < ApplicationController
     @article.user_id = current_user.id
     @article.save
 
-    redirect_to "/users/user_articles"
+    redirect_to "/users/#{current_user.id}"
   end
 
   def show
@@ -37,19 +37,19 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @article.update(article_params)
 
-    redirect_to "/users/user_articles"
+    redirect_to "/users/#{current_user.id}"
   end
 
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
 
-    redirect_to "/users/user_articles"
+    redirect_to "/users/#{current_user.id}"
   end
 
 
   private
     def article_params
-      params.require(:article).permit(:title, :content, :author)
+      params.require(:article).permit(:title, :content)
     end
 end
