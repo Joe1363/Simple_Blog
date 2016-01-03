@@ -30,7 +30,7 @@
             .col-md-2
               %p.comment_margin
                 - if can? :edit, a
-                  = link_to "Edit", edit_comment_path(a.id), class: "edit_link"
+                  = link_to "Edit", edit_comment_path(a.id)
                   |
                 - if can? :destroy, a
                   = link_to 'Delete', "/comments/#{a.id}", data: {confirm: "Are you sure you want to delete this article?"} , method: :delete
