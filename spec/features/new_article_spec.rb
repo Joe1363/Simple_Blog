@@ -31,7 +31,31 @@ describe "New article page" do
 
     checkNewPageContent()
     fillInFields()
-    
+    expect(page).to have_content "A Well Thought-out Englilsh Paper"
+  end
+
+  #### moderators ####
+  it "should let an author create a new article" do
+    log_in @bUser
+
+    click_link "Articles"
+    click_link "New Article"
+
+    checkNewPageContent()
+    fillInFields()
+    expect(page).to have_content "A Well Thought-out Englilsh Paper"
+  end
+
+  #### admin ####
+  it "should let an author create a new article" do
+    log_in @cUser
+
+    click_link "Articles"
+    click_link "New Article"
+
+    checkNewPageContent()
+    fillInFields()
+    expect(page).to have_content "A Well Thought-out Englilsh Paper"
   end
 
   private
@@ -55,4 +79,5 @@ describe "New article page" do
       fill_in "Article Title", :with => "A Well Thought-out Englilsh Paper"
       fill_in "Article Content", :with => "Something about hustle and bustle"
       click_button "Post Article"
+    end
 end
