@@ -12,7 +12,7 @@ describe Comment, type: :model do
    aComment.save
 
    expect(aComment.content).to eq "Your ideas are intriguing to me and I wish to subscribe to your newsletter"
-   expect(aComment.author).to eq "Homer Simpson"
+   expect(aComment.author).to eq "Chuck Norris"
    expect(aComment.article_id).to eq aArticle.id
  end
 end
