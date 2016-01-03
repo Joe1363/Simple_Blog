@@ -15,11 +15,12 @@ describe "Article show page" do
     @bArticle.user = @bUser
     @bUser.save
     @bArticle.save
-    @bComment = FactoryGirl.create(:comment, user_id: @bUser.id)
+    @bComment = FactoryGirl.create(:comment, user_id: @aUser.id)
     @bComment.article = @bArticle
     @bComment.save
-    @bbComment = FactoryGirl.create(:comment, content: "That can be arranged", author: "Chuck Norris", user_id: @aUser.id)
-
+    @bbComment = FactoryGirl.create(:comment, content: "That can be arranged", author: "Hank Hill", user_id: @bUser.id)
+    @bbComment.article = @bArticle
+    @bbComment.save
     ## 1 admin
     @cUser = FactoryGirl.create(:admin)
 
@@ -36,9 +37,20 @@ describe "Article show page" do
     expect(page).not_to have_xpath("//a[@href='/comments/#{@bbComment.id}']")
   end
 
-  it "should raise error if guest tries to access the urls for edit and destroy" do
+  it "should raise error if guest tries to access the urs for edit and destroy" do
     expect{visit "/comments/#{@bComment.id}/edit"}.to raise_error ()
     expect{visit "/comments/#{@bComment.id}"}.to raise_error ()
+  end
+
+  #### author ####
+  it "should allow an author to delete their own comments", js: true  do
+    log_in @bUser
+    click_link "Propane and Propane Accessories"
+
+    expect(page).to have_xpath("//a[@href='/comments/#{@bbComment.id}']")
+    find(:xpath, "//a[@href='/comments/#{@bbComment.id}']").click
+    page.evaluate_script('window.confirm = function() { return true; }')
+
   end
 
   private
@@ -50,5 +62,4 @@ describe "Article show page" do
         click_button "Log in"
       end
     end
-
 end
