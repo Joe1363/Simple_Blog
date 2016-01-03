@@ -15,10 +15,12 @@ describe "Article show page" do
     @bArticle.user = @bUser
     @bUser.save
     @bArticle.save
-    @bComment = FactoryGirl.create(:comment, user_id: @bUser.id)
+    @bComment = FactoryGirl.create(:comment, user_id: @aUser.id)
     @bComment.article = @bArticle
     @bComment.save
-    @bbComment = FactoryGirl.create(:comment, content: "That can be arranged", author: "Chuck Norris", user_id: @aUser.id)
+    @bbComment = FactoryGirl.create(:comment, content: "That can be arranged", author: "Hank Hill", user_id: @bUser.id)
+    @bbComment.article = @bArticle
+    @bbComment.save
 
     ## 1 admin
     @cUser = FactoryGirl.create(:admin)
@@ -36,9 +38,88 @@ describe "Article show page" do
     expect(page).not_to have_xpath("//a[@href='/comments/#{@bbComment.id}']")
   end
 
-  it "should raise error if guest tries to access the urls for edit and destroy" do
-    expect{visit "/comments/#{@bComment.id}/edit"}.to raise_error ()
-    expect{visit "/comments/#{@bComment.id}"}.to raise_error ()
+  # it "should raise error if guest tries to access the urls for edit and destroy" do
+  #   expect{visit "/comments/#{@nbComment.id}/edit"}.to raise_error ()
+  #   expect{visit "/comments/#{@nbComment.id}"}.to raise_error ()
+  # end
+
+  #### author ####
+  it "should let an author create a comment" do
+    log_in @aUser
+    visit '/'
+    click_link "Propane and Propane Accessories"
+
+    expect(page).to have_content "Hank Hill"
+    within(".comments_section") do
+      fill_in "comment_content", :with => ":)"
+      click_button "Post Comment"
+    end
+    within(".comments_section") do
+      expect(page).to have_content ":)"
+    end
+  end
+
+  it "should let an author delete their own comment" do
+    log_in @aUser
+    click_link "Propane and Propane Accessories"
+
+    expect(page).not_to have_xpath("//a[@href='/comments/#{@bbComment.id}/edit']")
+    expect(page).not_to have_xpath("//a[@href='/comments/#{@bbComment.id}']")
+    expect(page).to have_xpath("//a[@href='/comments/#{@bComment.id}/edit']")
+    expect(page).to have_xpath("//a[@href='/comments/#{@bComment.id}']")
+
+    find(:xpath, "//a[@href='/comments/#{@bComment.id}']").click
+    expect(page).not_to have_content "Your ideas are intriguing to me and I wish to subscribe to your newsletter"
+    expect(page).not_to have_xpath("//a[@href='/comments/#{@bComment.id}/edit']")
+    expect(page).not_to have_xpath("//a[@href='/comments/#{@bComment.id}']")
+  end
+
+  #### moderator ####
+  it "should let an author create a comment" do
+    log_in @bUser
+    visit '/'
+    click_link "Propane and Propane Accessories"
+
+    expect(page).to have_content "Hank Hill"
+    within(".comments_section") do
+      fill_in "comment_content", :with => ":)"
+      click_button "Post Comment"
+    end
+    within(".comments_section") do
+      expect(page).to have_content ":)"
+    end
+  end
+
+  it "should let an author delete their own comment" do
+    log_in @bUser
+    click_link "Propane and Propane Accessories"
+
+    expect(page).not_to have_xpath("//a[@href='/comments/#{@bComment.id}/edit']")
+    expect(page).not_to have_xpath("//a[@href='/comments/#{@bComment.id}']")
+    expect(page).to have_xpath("//a[@href='/comments/#{@bbComment.id}/edit']")
+    expect(page).to have_xpath("//a[@href='/comments/#{@bbComment.id}']")
+
+    find(:xpath, "//a[@href='/comments/#{@bbComment.id}']").click
+    expect(page).not_to have_content "That can be arranged"
+    expect(page).not_to have_xpath("//a[@href='/comments/#{@bbComment.id}/edit']")
+    expect(page).not_to have_xpath("//a[@href='/comments/#{@bbComment.id}']")
+  end
+
+  #### admin ####
+  it "should let an admin delete comments but not edit them" do
+    log_in @cUser
+    visit '/'
+    click_link "Propane and Propane Accessories"
+
+    expect(page).not_to have_xpath("//a[@href='/comments/#{@bComment.id}/edit']")
+    expect(page).to have_xpath("//a[@href='/comments/#{@bComment.id}']")
+    expect(page).not_to have_xpath("//a[@href='/comments/#{@bbComment.id}/edit']")
+    expect(page).to have_xpath("//a[@href='/comments/#{@bbComment.id}']")
+
+    find(:xpath, "//a[@href='/comments/#{@bbComment.id}']").click
+    expect(page).not_to have_content "That can be arranged"   #No it can't
+    expect(page).not_to have_xpath("//a[@href='/comments/#{@bbComment.id}/edit']")
+    expect(page).not_to have_xpath("//a[@href='/comments/#{@bbComment.id}']")
   end
 
   private

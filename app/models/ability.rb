@@ -7,6 +7,7 @@ class Ability
     if user.role == "admin"
       can :manage, :all
       cannot :edit, Article
+      cannot :edit, Comment
     elsif user.role == "moderator"
       can [:create, :update, :edit, :destroy], Article, user_id: user.id
       can :destroy, Article
