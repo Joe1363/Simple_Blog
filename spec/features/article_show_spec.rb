@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Main page" do
+describe "Article show page" do
   before(:each) do
     ## 1 article and 1 user(author)
     @aUser = FactoryGirl.create(:user)
