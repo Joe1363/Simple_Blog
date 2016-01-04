@@ -76,6 +76,18 @@ describe "Article show page" do
     expect(page).not_to have_xpath("//a[@href='/comments/#{@bComment.id}']")
   end
 
+  it "should show do nothing and show flash message if comment is blank for author" do
+    log_in @aUser
+    click_link "Propane and Propane Accessories"
+
+    within(".comments_section") do
+      click_button "Post Comment"
+    end
+    within(".notice") do
+      expect(page).to have_content "Comment cannot be blank, silly"
+    end
+  end
+
   #### moderator ####
   it "should let an moderator create a comment" do
     log_in @bUser
@@ -89,6 +101,18 @@ describe "Article show page" do
     end
     within(".comments_section") do
       expect(page).to have_content ":)"
+    end
+  end
+
+  it "should show do nothing and show flash message if comment is blank for moderator" do
+    log_in @bUser
+    click_link "Propane and Propane Accessories"
+
+    within(".comments_section") do
+      click_button "Post Comment"
+    end
+    within(".notice") do
+      expect(page).to have_content "Comment cannot be blank, silly"
     end
   end
 
