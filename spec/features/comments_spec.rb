@@ -57,6 +57,8 @@ describe "Article show page" do
     within(".comments_section") do
       expect(page).to have_content ":)"
     end
+    expect(page).to have_xpath("//a[@href='/comments/#{@bbComment.id + 1}/edit']")
+    expect(page).to have_xpath("//a[@href='/comments/#{@bbComment.id + 1}']")
   end
 
   it "should let an author delete their own comment" do
@@ -75,7 +77,7 @@ describe "Article show page" do
   end
 
   #### moderator ####
-  it "should let an author create a comment" do
+  it "should let an moderator create a comment" do
     log_in @bUser
     visit '/'
     click_link "Propane and Propane Accessories"
@@ -90,7 +92,7 @@ describe "Article show page" do
     end
   end
 
-  it "should let an author delete their own comment" do
+  it "should let an moderator delete but not edit anyones comment" do
     log_in @bUser
     click_link "Propane and Propane Accessories"
 

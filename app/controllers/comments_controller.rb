@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @comment.author = current_user.first_name + " " + current_user.last_name
     @comment.article_id = @article.id
-    @comment.user_id = @article.user_id
+    @comment.user_id = current_user.id
     @comment.save
 
     redirect_to "/articles/#{@article.id}"
