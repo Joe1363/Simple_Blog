@@ -24,7 +24,7 @@ describe "Article show page" do
   end
 
   #### guest ####
-  it "should display article contents and comments only" do
+  it "should display article contents and comments only for guest" do
     visit "/"
     click_link "Propane and Propane Accessories"
 
@@ -38,7 +38,7 @@ describe "Article show page" do
   end
 
   #### author ####
-  it "should display article contents, edit link, comments, and comment form on own article" do
+  it "should display article contents, edit link, comments, and comment form for author's article" do
     log_in @aUser
 
     visit "/"
@@ -84,7 +84,7 @@ describe "Article show page" do
     end
   end
 
-  it "should display article contents, comments, and comment form on another user's article" do
+  it "should display article contents, comments, and comment form fir moderator on another user's article" do
     log_in @bUser
 
     visit "/"
@@ -100,7 +100,7 @@ describe "Article show page" do
   end
 
   #### admin ####
-  it "should be able to view all except edit link" do
+  it "should be able to view all except edit link for admin" do
     log_in @cUser
 
     visit "/"

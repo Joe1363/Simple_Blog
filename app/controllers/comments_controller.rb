@@ -1,4 +1,7 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!
+  load_and_authorize_resource
+
   def create
     @article = Article.find(params[:id])
     @comment = Comment.new(comment_params)
@@ -8,7 +11,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to article_path(@article.id, anchor: 'comments')
     else
-      flash[:notice] = "Comment cannot be blank, silly"
+      flash[:notice] = "Comment can't be blank, silly"
       redirect_to article_path(@article.id, anchor: 'comments')
     end
   end

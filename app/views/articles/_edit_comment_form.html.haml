@@ -8,8 +8,8 @@
       .modal-body
         = form_for @comment, url: comment_path(a.id), html: {method: "patch"} do |f|
           .form-group
-            = f.text_area :content, value: "#{a.content}", class: "form-control", rows: '3'
+            = f.text_area :content, value: "#{a.content}", class: "form-control", id: "edit_comment_content", rows: '3'
           .form-group
             .modal-footer
-              %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}= "Canel"
-              = f.submit "Post Comment", id: "post_submit", class: "btn btn-primary"
+              %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}= "Cancel"
+              = f.submit "Edit Comment", id: "post_submit", class: "btn btn-primary"

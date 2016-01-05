@@ -18,12 +18,13 @@
 %br
 %h4.text-center= "Comments"
 - if flash[:notice]
-  .notice.text-center.red= flash[:notice]
+  - if flash[:notice] == "Comment can't be blank, silly"
+    .notice.text-center.red= flash[:notice]
 .container.comments_section#comments
   - if !@comments.empty?
     - @comments.each do |a|
       .row
-        .col-md-12
+        .col-md-12{id: "comment#{a.id}"}
           %h5.comment_margin
             %strong= a.author
           .row
@@ -31,15 +32,17 @@
               %p.comment_margin= a.created_at.strftime("%m-%d-%y at %l:%M %p %Z")
             .col-md-2
               %p.comment_margin
-                - if can? :edit, a
+                - if can? :update, a
                   %a{href: "#", data: {toggle: "modal", target: "#comment_#{a.id}"}}= "Edit"
                   |
                 - if can? :destroy, a
                   = link_to 'Delete', "/comments/#{a.id}", method: :delete
-              = render :partial => "edit_comment_form", locals: {a: a}
           %hr.comment_hr
           %p= a.content
           %hr.comment_bottom_hr
+          - if can? :edit, a
+            = render :partial => "edit_comment_form", locals: {a: a}
+
   - else
     - if user_signed_in?
       %p.text-center= "Be the first to comment on this article."

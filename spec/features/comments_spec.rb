@@ -57,23 +57,31 @@ describe "Article show page" do
     within(".comments_section") do
       expect(page).to have_content ":)"
     end
-    expect(page).to have_xpath("//a[@href='/comments/#{@bbComment.id + 1}/edit']")
-    expect(page).to have_xpath("//a[@href='/comments/#{@bbComment.id + 1}']")
+    within("#comment#{@bbComment.id + 1}") do
+      expect(page).to have_content "Edit"
+      expect(page).to have_xpath("//a[@href='/comments/#{@bbComment.id + 1}']")
+    end
   end
 
   it "should let an author delete their own comment" do
     log_in @aUser
     click_link "Propane and Propane Accessories"
 
-    expect(page).not_to have_xpath("//a[@href='/comments/#{@bbComment.id}/edit']")
-    expect(page).not_to have_xpath("//a[@href='/comments/#{@bbComment.id}']")
-    expect(page).to have_xpath("//a[@href='/comments/#{@bComment.id}/edit']")
-    expect(page).to have_xpath("//a[@href='/comments/#{@bComment.id}']")
+    within("#comment#{@bbComment.id}") do
+      expect(page).not_to have_content "Edit"
+      expect(page).not_to have_xpath("//a[@href='/comments/#{@bbComment.id}']")
+    end
 
+    within("#comment#{@bComment.id}") do
+      expect(page).to have_content "Edit"
+      expect(page).to have_xpath("//a[@href='/comments/#{@bComment.id}']")
+    end
     find(:xpath, "//a[@href='/comments/#{@bComment.id}']").click
     expect(page).not_to have_content "Your ideas are intriguing to me and I wish to subscribe to your newsletter"
-    expect(page).not_to have_xpath("//a[@href='/comments/#{@bComment.id}/edit']")
-    expect(page).not_to have_xpath("//a[@href='/comments/#{@bComment.id}']")
+    within(".comments_section") do
+      expect(page).not_to have_content "Edit"
+      expect(page).not_to have_xpath("//a[@href='/comments/#{@bComment.id}']")
+    end
   end
 
   it "should show do nothing and show flash message if comment is blank for author" do
@@ -84,12 +92,12 @@ describe "Article show page" do
       click_button "Post Comment"
     end
     within(".notice") do
-      expect(page).to have_content "Comment cannot be blank, silly"
+      expect(page).to have_content "Comment can't be blank, silly"
     end
   end
 
   #### moderator ####
-  it "should let an moderator create a comment" do
+  it "should let a moderator create a comment" do
     log_in @bUser
     visit '/'
     click_link "Propane and Propane Accessories"
@@ -112,23 +120,33 @@ describe "Article show page" do
       click_button "Post Comment"
     end
     within(".notice") do
-      expect(page).to have_content "Comment cannot be blank, silly"
+      expect(page).to have_content "Comment can't be blank, silly"
     end
   end
 
-  it "should let an moderator delete but not edit anyones comment" do
+  it "should let a moderator delete but not edit anyones comment" do
     log_in @bUser
     click_link "Propane and Propane Accessories"
 
-    expect(page).not_to have_xpath("//a[@href='/comments/#{@bComment.id}/edit']")
-    expect(page).not_to have_xpath("//a[@href='/comments/#{@bComment.id}']")
-    expect(page).to have_xpath("//a[@href='/comments/#{@bbComment.id}/edit']")
-    expect(page).to have_xpath("//a[@href='/comments/#{@bbComment.id}']")
+    within("#comment#{@bComment.id}") do
+      expect(page).not_to have_content "Edit"
+      expect(page).to have_xpath("//a[@href='/comments/#{@bComment.id}']")
+    end
+    within("#comment#{@bbComment.id}") do
+      expect(page).to have_content "Edit"
+      expect(page).to have_xpath("//a[@href='/comments/#{@bbComment.id}']")
+    end
 
+    find(:xpath, "//a[@href='/comments/#{@bComment.id}']").click
     find(:xpath, "//a[@href='/comments/#{@bbComment.id}']").click
-    expect(page).not_to have_content "That can be arranged"
-    expect(page).not_to have_xpath("//a[@href='/comments/#{@bbComment.id}/edit']")
-    expect(page).not_to have_xpath("//a[@href='/comments/#{@bbComment.id}']")
+    within(".comments_section") do
+      expect(page).not_to have_content "That can be arranged"
+      expect(page).not_to have_content "Edit"
+      expect(page).not_to have_xpath("//a[@href='/comments/#{@bbComment.id}']")
+
+      expect(page).not_to have_content "Your ideas are intriguing to me and I wish to subscribe to your newsletter"
+      expect(page).not_to have_xpath("//a[@href='/comments/#{@bbComment.id}']")
+    end
   end
 
   #### admin ####
