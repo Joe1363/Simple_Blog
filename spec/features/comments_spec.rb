@@ -38,11 +38,6 @@ describe "Article show page" do
     expect(page).not_to have_xpath("//a[@href='/comments/#{@bbComment.id}']")
   end
 
-  # it "should raise error if guest tries to access the urls for edit and destroy" do
-  #   expect{visit "/comments/#{@nbComment.id}/edit"}.to raise_error ()
-  #   expect{visit "/comments/#{@nbComment.id}"}.to raise_error ()
-  # end
-
   #### author ####
   it "should let an author create a comment" do
     log_in @aUser
@@ -96,6 +91,27 @@ describe "Article show page" do
     end
   end
 
+  it "should let an author edit their own comments" do
+    log_in @aUser
+    click_link "Propane and Propane Accessories"
+
+    within(".comments_section") do
+      click_link "Edit"
+      expect(page).to have_content "Edit Comment"
+    end
+
+    within(".modal-content") do
+      expect(find_field('edit_comment_content').value).to eq "Your ideas are intriguing to me and I wish to subscribe to your newsletter"
+
+      fill_in "edit_comment_content", :with => ":)"
+      click_button "Edit Comment"
+    end
+
+    within(".comments_section") do
+      expect(page).to have_content ":)"
+    end
+  end
+
   #### moderator ####
   it "should let a moderator create a comment" do
     log_in @bUser
@@ -146,6 +162,27 @@ describe "Article show page" do
 
       expect(page).not_to have_content "Your ideas are intriguing to me and I wish to subscribe to your newsletter"
       expect(page).not_to have_xpath("//a[@href='/comments/#{@bbComment.id}']")
+    end
+  end
+
+  it "should let a amoderator edit their own comments" do
+    log_in @bUser
+    click_link "Propane and Propane Accessories"
+
+    within(".comments_section") do
+      click_link "Edit"
+      expect(page).to have_content "Edit Comment"
+    end
+
+    within(".modal-content") do
+      expect(find_field('edit_comment_content').value).to eq "That can be arranged"
+
+      fill_in "edit_comment_content", :with => ":)"
+      click_button "Edit Comment"
+    end
+
+    within(".comments_section") do
+      expect(page).to have_content ":)"
     end
   end
 
