@@ -14,6 +14,11 @@ class CommentsController < ApplicationController
   end
 
   def update
+    @comment = Comment.find(params[:id])
+    @comment.update(comment_params)
+
+    env["HTTP_REFERER"] += '#comments'
+    redirect_to :back
   end
 
   def destroy

@@ -1,0 +1,15 @@
+.modal.fade{"aria-labelledby" => "comment_#{a.id}", :id => "comment_#{a.id}", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} x
+        %h4.modal-title{:id => "comment_#{a.id}"}= "Edit Comment"
+      .modal-body
+        = form_for @comment, url: comment_path(a.id), html: {method: "patch"} do |f|
+          .form-group
+            = f.text_area :content, value: "#{a.content}", class: "form-control", rows: '3'
+          .form-group
+            .modal-footer
+              %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}= "Canel"
+              = f.submit "Post Comment", id: "post_submit", class: "btn btn-primary"

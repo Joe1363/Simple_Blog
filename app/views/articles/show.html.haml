@@ -32,14 +32,14 @@
             .col-md-2
               %p.comment_margin
                 - if can? :edit, a
-                  = link_to "Edit", edit_comment_path(a.id)
+                  %a{href: "#", data: {toggle: "modal", target: "#comment_#{a.id}"}}= "Edit"
                   |
                 - if can? :destroy, a
                   = link_to 'Delete', "/comments/#{a.id}", method: :delete
+              = render :partial => "edit_comment_form", locals: {a: a}
           %hr.comment_hr
           %p= a.content
           %hr.comment_bottom_hr
-
   - else
     - if user_signed_in?
       %p.text-center= "Be the first to comment on this article."
