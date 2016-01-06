@@ -1,26 +1,24 @@
 %h4.text-center= @article.title
-.container
-  .row
-    .col-md-1
+.row
+  .col-md-1
+    %h5
+      %a{href: "/"}= "<<Back"
+  .col-md-1
+    - if can? :edit, @article
       %h5
-        %a{href: "/"}= "<<Back"
-    .col-md-1
-      - if can? :edit, @article
-        %h5
-          %a{href: "/articles/#{@article.id}/edit"}= "Edit"
-    .col-md-8
-      %h5.text-center
-        %a.article_title{href: "/users/#{@article.user_id}"}= "By #{@article.author}"
+        %a{href: "/articles/#{@article.id}/edit"}= "Edit"
+  .col-md-8
+    %h5.text-center
+      %a.article_title{href: "/users/#{@article.user_id}"}= "By #{@article.author}"
 %br
-.container
-  %p.index_content= simple_format(@article.content)
-  %hr
+%p.index_content= simple_format(@article.content)
+%hr
 %br
 %h4.text-center= "Comments"
 - if flash[:notice]
   - if flash[:notice] == "Comment can't be blank, silly"
     .notice.text-center.red= flash[:notice]
-.container.comments_section#comments
+.comments_section#comments
   - if !@comments.empty?
     - @comments.each do |a|
       .row

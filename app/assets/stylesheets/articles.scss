@@ -1,8 +1,20 @@
-//// index ////
+//// general ////
+body {
+  background-color: #c9d6fe !important;
+}
+.backdrop {
+  background-color: white;
+  padding-left: 50px !important;
+  padding-right: 50px !important;
+}
 #brand {
-  color: black;
+  color: white;
   font-family: "Handlee";
 }
+#brand:hover, #brand:focus {
+  background-color: #454545 !important;
+}
+//// index ////
 #brand:hover {
   background-color: #f2f2f2;
 }
@@ -27,8 +39,4 @@
   padding-left: 15px;
   padding-right: 15px;
   color: transparent;
-}
-//// show page ////
-.comments_section {
-  margin-bottom: 15px;
 }

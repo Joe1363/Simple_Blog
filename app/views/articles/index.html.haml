@@ -1,15 +1,12 @@
 %h4.text-center= "Newest Articles"
 %br
-.container
-  .row
-    .col-md-10.col-md-offset-1.newest
-      - if !@articles.empty?
-        - @articles.each do |a|
-          %a{href: "/articles/#{a.id}"}
-            .index_sample
-              %h5
-                .title=a.title
-                by #{a.author}
-              %p.index_content= raw truncate(a.content, length: 280, omission: "...")
-      - else
-        %p= "There's nothing at all, nothing at all, nothing at all."
+- if !@articles.empty?
+  - @articles.each do |a|
+    %a{href: "/articles/#{a.id}"}
+      .index_sample
+        %h5
+          .title=a.title
+          by #{a.author}
+        %p.index_content= raw truncate(a.content, length: 280, omission: "...")
+- else
+  %p= "There's nothing at all, nothing at all, nothing at all."

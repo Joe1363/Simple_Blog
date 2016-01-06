@@ -1,13 +1,13 @@
 %h2.text-center= "Edit"
 %br
 = form_for(@article) do |f|
-  .form-group.container
+  .form-group
     = f.label :title, "Article Title"
     %br
     = f.text_field :title, class: "form-control"
-  .form-group.container
+  .form-group
     = f.label :content, "Article Content"
     %br
     = f.text_area :content, class: "form-control", rows: '15'
-  .form-group.container
+  .form-group
     = f.submit "Edit Article"

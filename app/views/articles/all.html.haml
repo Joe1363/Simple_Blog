@@ -1,11 +1,10 @@
 %h4.text-center= "All Articles"
 %br
-.container
-  - @articles.each do |a|
-    %a{href: "/articles/#{a.id}"}
-      .index_sample
-        %h5
-          .title=a.title
-          by #{a.author}
-        %p.index_content= raw truncate(a.content, length: 160, omission: "...")
-  %h4= will_paginate @products
+- @articles.each do |a|
+  %a{href: "/articles/#{a.id}"}
+    .index_sample
+      %h5
+        .title=a.title
+        by #{a.author}
+      %p.index_content= raw truncate(a.content, length: 160, omission: "...")
+%h4= will_paginate @products
