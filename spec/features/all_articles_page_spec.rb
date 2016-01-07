@@ -52,7 +52,7 @@ describe "All articles page" do
   private
     def log_in(user)
       visit 'users/sign_in'
-      within('.row') do
+      within('#login') do
         fill_in "Email", :with => user.email
         fill_in "Password", :with => user.password
         click_button "Log in"

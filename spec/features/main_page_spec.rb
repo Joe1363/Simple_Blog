@@ -28,7 +28,7 @@ describe "Main page" do
       expect(page).to have_content "View Article"
       expect(page).to have_content "Log In"
       expect(page).to have_content "Sign Up"
-      
+
       expect(page).not_to have_content "Hello"
       expect(".dropdown").not_to have_content "Article"
       expect(page).not_to have_content "Tools"
@@ -74,7 +74,7 @@ describe "Main page" do
   private
     def log_in(user)
       visit 'users/sign_in'
-      within('.row') do
+      within('#login') do
         fill_in "Email", :with => user.email
         fill_in "Password", :with => user.password
         click_button "Log in"
