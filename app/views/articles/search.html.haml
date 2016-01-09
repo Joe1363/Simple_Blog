@@ -11,10 +11,10 @@
     %hr
     - @search.each do |a|
       %a.article_title{href: "/articles/#{a.id}"}
-        %p
+        %p.search_title
           %strong= "#{a.title} "
           by #{a.author}
-        %p= "Published: #{a.created_at}"
+        %p= "Published: #{a.created_at.strftime("%m-%d-%y at %l:%M %p %Z")}"
       %hr
   - else
     %p= "No matches where found."
