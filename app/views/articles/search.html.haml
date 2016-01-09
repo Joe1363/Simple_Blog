@@ -10,7 +10,7 @@
     %h4.text-center= "Found #{@search.length} Articles"
     %hr
     - @search.each do |a|
-      %a.article_title{href: "/articles/search"}
+      %a.article_title{href: "/articles/#{a.id}"}
         %p
           %strong= "#{a.title} "
           by #{a.author}
