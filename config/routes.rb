@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :comments
 
   get "articles/all"
+  get "articles/search"
   resources :articles
   match('/articles/:id/create', {:via => :post, :to => 'comments#create'})
 

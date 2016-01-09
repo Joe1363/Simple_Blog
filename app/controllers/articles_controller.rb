@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :authenticate_user!, :except => [:index, :all, :show]
+  before_action :authenticate_user!, :except => [:index, :all, :show, :search]
   load_and_authorize_resource
 
   def index
@@ -47,6 +47,8 @@ class ArticlesController < ApplicationController
     redirect_to "/users/#{current_user.id}"
   end
 
+  def search
+  end
 
   private
     def article_params
