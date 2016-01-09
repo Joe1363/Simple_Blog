@@ -25,7 +25,9 @@ describe "Main page" do
     visit "/"
     within(".navbar") do
       expect(page).to have_content "Simple Blog"
+      expect(page).to have_content "Articles"
       expect(page).to have_content "View Article"
+      expect(page).to have_content "Search"
       expect(page).to have_content "Log In"
       expect(page).to have_content "Sign Up"
 
@@ -86,6 +88,8 @@ describe "Main page" do
         expect(page).to have_content "Simple Blog"
         expect(page).to have_content "Hello #{user.first_name}!"
         expect(page).to have_content "Articles"
+        expect(page).to have_content "View Article"
+        expect(page).to have_content "Search"
         expect(page).to have_content "Settings"
         expect(page).to have_content "Logout"
       end
