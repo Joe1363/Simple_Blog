@@ -1,7 +1,20 @@
-%h4.text-center= "Search"
+%h4.text-center= "Search For Articles"
 %br
 = form_tag articles_search_path, method: "get", class: "text-center" do
   %p
-    = text_field_tag :search
-    = submit_tag "Search"
+    = text_field_tag :search, params[:search], placeholder: "Search by title and author"
+    = submit_tag "Search", name: nil
 %br
+- if !@search.nil?
+  - if !@search.empty?
+    %h4.text-center= "Found #{@search.length} Articles"
+    %hr
+    - @search.each do |a|
+      %a.article_title{href: "/articles/search"}
+        %p
+          %strong= "#{a.title} "
+          by #{a.author}
+        %p= "Published: #{a.created_at}"
+      %hr
+  - else
+    %p= "No matches where found."

@@ -48,6 +48,9 @@ class ArticlesController < ApplicationController
   end
 
   def search
+    if !params[:search].nil?
+      @search = Article.search(params[:search]).order("created_at DESC")
+    end
   end
 
   private
