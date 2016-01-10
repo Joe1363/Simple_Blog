@@ -1,6 +1,6 @@
 #Seed contains 1 admin, 1 moderator, 5 authors, 12 articles, and 12 comments
 #All passwords are 'password'
-User.create(first_name: 'admin', last_name: 'admin', role: 'admin', password: 'password')
+User.create(first_name: 'admin', last_name: 'admin', role: 'admin', email: "admin@yahoo.com" password: 'password')
 hank = User.create(first_name: 'Hank', last_name: 'Hill', role: 'moderator', email: 'hank@yahoo.com', password: 'password')
 
 john = User.create(first_name: 'John', last_name: 'Doe', role: 'author', email: 'john@yahoo.com', password: 'password')
