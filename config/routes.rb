@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  match 'auth/:provider/callback', to: 'sessions#create'
-  match 'auth/failure', to: redirect('/')
-  match 'signout', to: 'sessions#destroy', as: 'signout'
+devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   root "articles#index"
   resources :comments
