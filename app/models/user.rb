@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook]
-         
+
   validates_presence_of :first_name, :last_name
 
   has_many :articles
@@ -17,6 +17,14 @@ class User < ActiveRecord::Base
       user.last_name = auth.info.name.split(' ').last
       user.oauth_token = auth.credentials.token
       user.oath_expires_at = Time.at(auth.credentials.expires_at)
+    end
+  end
+
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
+      end
     end
   end
 end
