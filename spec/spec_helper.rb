@@ -17,6 +17,22 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'capybara/rspec'
+require 'omniauth'
+
+OmniAuth.config.test_mode = true
+omniauth_hash = { 'provider' => 'github',
+                  'uid' => '12345',
+                  'info' => {
+                      'name' => 'John Doe',
+                      'email' => 'jd@yahoo.com'
+                  },
+                  'credentials' => {
+                      'token' => 'ABCDEFGH',
+                      'expires_at' => 1321747205,
+                      'expires' => true
+                  }
+}
+OmniAuth.config.add_mock(:facebook, omniauth_hash)
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
