@@ -16,7 +16,8 @@ class User < ActiveRecord::Base
       user.first_name = auth.info.name.split(' ').first
       user.last_name = auth.info.name.split(' ').last
       user.oauth_token = auth.credentials.token
-      user.oath_expires_at = Time.at(auth.credentials.expires_at)
+      user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+      user.save!
     end
   end
 
