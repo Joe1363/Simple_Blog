@@ -1,0 +1,17 @@
+.modal.fade{"aria-labelledby" => "#share_modal", :id => "share_modal", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} x
+        %h4.modal-title.text-center{:id => "share_modal"}= "Share Article On Facebook"
+      .modal-body
+        %h4.text-center= @article.title
+        %h5.text-center= "By #{@article.author}"
+        = form_for @article, url: "/articles/#{@article.id}/share", html: {method: "get", class: "fb_share_form", id: "fb_share_form"} do |f|
+          .form-group
+            = f.text_area :content, value: "", name: "fb_content", class: "form-control", id: "fb_share_content", rows: '3'
+          .form-group
+            .modal-footer
+              %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}= "Cancel"
+              = f.submit "Share Article", id: "post_submit", class: "btn btn-primary"

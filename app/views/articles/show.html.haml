@@ -12,6 +12,16 @@
       %a.article_title{href: "/users/#{@article.user_id}"}= "By #{@article.author}"
 %br
 %p.index_content= simple_format(@article.content)
+- if user_signed_in?
+  - if current_user.provider == 'facebook'
+    - if flash[:notice]
+      - if flash[:notice] != "Comment can't be blank, silly"
+        .notice.text-center.red= flash[:notice]
+    %a.text-center{href: "#", data: {toggle: "modal", target: "#share_modal"}}
+      %h5
+        %i.fa.fa-facebook-square
+        Share on Facebook
+    = render "fb_share_form"
 %hr
 %br
 %h4.text-center= "Comments"

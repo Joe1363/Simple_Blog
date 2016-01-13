@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root "articles#index"
   resources :comments
 
+  get "articles/:id/share", to: "articles#fb_share"
   get "articles/all"
   get "articles/search"
   resources :articles

@@ -53,6 +53,19 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def fb_share
+    @user = current_user
+    if @user.facebook.put_wall_post(params[:fb_content], {
+      "link" => "http://www.facebook.com/"
+      })
+      flash[:notice] = "Page shared on Facebook"
+    else
+      flash[:notice] = "It didn't go through for some reason"
+    end
+
+    redirect_to :back
+  end
+
   private
     def article_params
       params.require(:article).permit(:title, :content)
