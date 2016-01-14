@@ -21,14 +21,19 @@ describe "Omniauth Facebook login" do
     expect(page).to have_content "Chuck Norris"
   end
 
-  # it 'should let a user share an article on facebook' do
-    #Trying to figure this one out...
-    # click_link 'Sign Up'
-    # click_link 'Log in with Facebook'
-    #
-    # click_link "The Majestic Beauty Of The Roudhouse Kick"
-    #
+  it 'should let a user share an article on facebook' do
+    click_link 'Sign Up'
+    click_link 'Log in with Facebook'
+
+    click_link "The Majestic Beauty Of The Roudhouse Kick"
+    expect(page).to have_content "Share Article On Facebook"
+    click_link "Share on Facebook"
+    fill_in "fb_content", :with => "Link this page."
+    click_button "Share Article"
+
+    expect(page).to have_content "Page shared on Facebook"
+
     # graph = Koala::Facebook::API.new('ABCDEFGH', ENV['FACEBOOK_SECRET'])
     # p graph.get_object('12345')
-  # end
+  end
 end

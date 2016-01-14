@@ -15,7 +15,7 @@
 - if user_signed_in?
   - if current_user.provider == 'facebook'
     - if flash[:notice]
-      - if flash[:notice] != "Comment can't be blank, silly"
+      - if flash[:notice] != "Comment can't be blank, silly" && flash[:notice] != "Successfully authenticated from Facebook account."
         .notice.text-center.red= flash[:notice]
     %a.text-center{href: "#", data: {toggle: "modal", target: "#share_modal"}}
       %h5
