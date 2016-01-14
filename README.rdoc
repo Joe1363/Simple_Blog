@@ -7,3 +7,5 @@ The application sets permissions to four different kinds of users: guests(users 
 The application only lets guests read articles and see an authors user page for a list of that author's articles. Authors can create, edit, and destroy articles in addition to viewing. Moderators are able delete any article in addition to what an author can do. An admin can assign the position of moderator to a user in addition to everything a moderator and author can do. Moderators and the admin cannot edit an authors article, only delete them.
 
 Run rake db:seed for a sample database.
+
+Branch fb is an experiment using the Facebook graph API. In progress...
