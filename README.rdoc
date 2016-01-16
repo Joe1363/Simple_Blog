@@ -9,3 +9,7 @@ The application only lets guests read articles and see an authors user page for 
 Run rake db:seed for a sample database.
 
 Branch fb is an experiment using the Facebook graph API. In progress...
+
+Status: All local
+Omniauth Facebook sign in: working, tested
+Sharing links to Facebook: working, not tested
